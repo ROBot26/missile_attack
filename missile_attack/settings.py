@@ -10,8 +10,10 @@ class Settings():
         
         #Ship setting
         self.ship_limit=3
-        self.ship_width=100
-        self.ship_height=150
+        self.ship_width_player=100
+        self.ship_height_player=150
+        self.ship_width_score=30
+        self.ship_height_score=45
 
         #missile settings
         self.missile_width=10
@@ -19,7 +21,7 @@ class Settings():
         
         #Alien settings
         self.alien_speed_factor = 1
-        self.fleet_drop_speed = 20
+        self.fleet_drop_speed = 10
         
         #how quickly the game speeds up
         self.speedup_scale = 1.1
@@ -49,7 +51,9 @@ class Settings():
         """Increase speed settings."""
         self.ship_speed_factor *= self.speedup_scale
         self.bullet_speed_factor *= self.speedup_scale
-        self. alien_speed_factor *= self.speedup_scale
+        self.alien_speed_factor *= self.speedup_scale
+        self.fleet_drop_speed *= self.speedup_scale
+
         self.alien_points =int(self.alien_points * self.score_scale)
         print(self.alien_points)
 
