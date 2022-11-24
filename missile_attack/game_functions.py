@@ -1,9 +1,11 @@
 import sys
-
+from random import randint
 import pygame
+
 from bullet import Bullet
 from alien import Alien
 from time import sleep
+from power_up import PowerUp
 
 def get_number_aliens_x(ai_settings,alien_width):
     """Determine the number of aliens that fit in a row."""
@@ -26,6 +28,14 @@ def create_alien(ai_settings,screen, aliens, alien_number,row_number):
     alien.rect.x = alien.x
     alien.rect.y = alien.rect.height + 2* alien.rect.height * row_number
     aliens.add(alien)
+def create_pu(ai_settings, screen, aliens, pus):
+    pu=PowerUp(ai_settings,screen)
+    #pu.x=aliens[0].rect.x
+    #pu.y=aliens[0].rect.y
+    #pu.rect.x=pu.x
+    #pu.rect.y=pu.y
+    pus.add(pu)
+
 
 def create_fleet(ai_settings, screen, ship, aliens):
     """Create a full fleet of aliens."""
@@ -116,7 +126,7 @@ def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bull
             check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets, mouse_x, mouse_y)
 
 
-def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets, pus):
     """Update position of bullets and get rid of old bullets."""
     #update bullet positions
     bullets.update()
@@ -124,17 +134,30 @@ def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <=0:
             bullets.remove(bullet)
-    print(len(bullets))
+    print("Bullets: " + str(len(bullets)))
     #check for any bullets that have hit aliens.
     #If so, get rid of the bullet and the alien.
-    check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets)
+    check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets, pus)
 
-def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets):
+def update_pus(ai_settings, screen, stats, sb, ship, aliens, bullets, pus):
+    pus.update()
+
+    #for pu in pus.copy():
+        #if pu.rect.bottom >= ai_settings.screen_height:
+            #pus.remove(pu)
+    print("Power ups: " + str(len(pus)))
+    #if ship touches powerup
+    #check_powerup_ship_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets, pus)
+
+def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets, pus):
     collisions = pygame.sprite.groupcollide(bullets,aliens, True, True)
     if collisions:
         for aliens in collisions.values():
             stats.score+= ai_settings.alien_points * len(aliens)
             sb.prep_score()
+            pu_prob_roll = randint(1, 100)
+            if pu_prob_roll <= ai_settings.pu_probability:
+                create_pu(ai_settings, screen, aliens,pus)
         check_high_score(stats, sb)
 
     if len(aliens)==0:
@@ -146,7 +169,8 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         #Increase level.
         stats.level +=1
         sb.prep_level()
-        
+
+
 
 def fire_bullet(ai_settings, screen, ship, bullets):
      # Create a new bullet if limit not reached

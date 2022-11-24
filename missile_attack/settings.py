@@ -20,8 +20,8 @@ class Settings():
         self.missile_height=50
         
         #Alien settings
-        self.alien_speed_factor = 1
-        self.fleet_drop_speed = 10
+        self.alien_speed_factor = 0.5
+        self.fleet_drop_speed = 4
         
         #how quickly the game speeds up
         self.speedup_scale = 1.1
@@ -35,6 +35,12 @@ class Settings():
         self.bullet_height = 15
         self.bullet_color = 60,60,60
         self.bullets_allowed=5
+
+        #Power up
+        self.pu_width = 30
+        self.pu_height = 50
+        self.pu_speed_factor = 1
+        self.pu_probability = 100
     
     def initialize_dynamic_settings(self):
         """Initialize settings that change hroughout the game."""
