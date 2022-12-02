@@ -1,3 +1,4 @@
+import pygame
 class Settings():
     """A class to store all settings for Alien Invasion."""
 
@@ -7,6 +8,7 @@ class Settings():
         self.screen_width = 1200
         self.screen_height= 800
         self.bg_color = (180,180,255)
+        self.background_image = pygame.image.load('images/clouds.jpg')
         
         #Ship setting
         self.ship_limit=3
@@ -33,15 +35,15 @@ class Settings():
 
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_color = 60,60,60
+        self.bullet_color = 255,255,0
         self.bullets_allowed=5
 
         #Power up
         self.pu_width = 30
         self.pu_height = 50
         self.pu_speed_factor = 1
-        self.pu_ammo_probability = 7
-        self.pu_life_probability = 1
+        self.pu_ammo_probability = 5
+        self.pu_life_probability = 2
 
         self.pu_b_offset = 20
         self.pu_ammo_i = 30

@@ -19,7 +19,7 @@ def run_game():
     screen =  pygame.display.set_mode(
             (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Alien Invasion")
-    
+    pygame.display.set_icon(screen)
     play_button = Button(ai_settings, screen, "Play")
 
     stats = GameStats(ai_settings)
@@ -32,7 +32,7 @@ def run_game():
     aliens =Group()
     pus = Group()
     #Start the main loop for the gamge
-    
+
     gf.create_fleet(ai_settings, screen, ship, aliens)
 
     while True:

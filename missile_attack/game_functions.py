@@ -98,12 +98,14 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens,
 
 def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, pus, play_button):
     #redraw the screen during each pass through the loop
-    screen.fill(ai_settings.bg_color)
+    screen.blit(ai_settings.background_image, (0, 0))
+    #screen.fill(ai_settings.bg_color)
     
     #Redraw all bullets behind ship and aliens
     for bullet in bullets.sprites():
         bullet.draw_bullet()
-    
+
+
     ship.blitme()
     aliens.draw(screen)
     pus.draw(screen)
