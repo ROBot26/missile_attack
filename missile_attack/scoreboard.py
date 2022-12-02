@@ -21,6 +21,7 @@ class Scoreboard():
         self.prep_high_score()
         self.prep_level()
         self.prep_ships()
+        self.prep_ammo()
     def prep_score(self):
         """Turn the scoree into a rendered image."""
         rounded_score = int(round(self.stats.score,-1))
@@ -40,6 +41,7 @@ class Scoreboard():
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image,self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        self.screen.blit(self.ammo_image, self.ammo_rect)
 
         self.ships.draw(self.screen)
 
@@ -70,3 +72,11 @@ class Scoreboard():
             ship.rect.x = 10+ship_number * ship.rect.width
             ship.rect.y = 10
             self.ships.add(ship)
+    def prep_ammo(self):
+        """"Turn the level into a rendered image."""
+        self.ammo_image = self.font.render(str(self.ai_settings.pu_ammo), True,
+                                                self.text_color, self.ai_settings.bg_color)
+        # Positions the level below the score
+        self.ammo_rect = self.ammo_image.get_rect()
+        self.ammo_rect.left = self.screen_rect.centerx/2
+        self.ammo_rect.top = 20

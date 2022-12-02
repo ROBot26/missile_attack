@@ -12,7 +12,7 @@ class Settings():
         self.ship_limit=3
         self.ship_width_player=100
         self.ship_height_player=150
-        self.ship_width_score=30
+        self.ship_width_score=30 #for scoreboard
         self.ship_height_score=45
 
         #missile settings
@@ -40,7 +40,10 @@ class Settings():
         self.pu_width = 30
         self.pu_height = 50
         self.pu_speed_factor = 1
-        self.pu_probability = 100
+        self.pu_probability = 15
+
+        self.pu_b_offset = 20
+        self.pu_ammo_i = 30
     
     def initialize_dynamic_settings(self):
         """Initialize settings that change hroughout the game."""
@@ -52,6 +55,10 @@ class Settings():
         
         #scoring
         self.alien_points = 50
+
+        self.pu_ammo = 0
+
+        self.pu_img_list=["images/power_up.png", "images/ship.bmp"]
     
     def increase_speed(self):
         """Increase speed settings."""

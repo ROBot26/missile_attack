@@ -3,15 +3,15 @@ from pygame.sprite import Sprite
 
 class PowerUp(Sprite):
 
-    def __init__(self, ai_settings, screen):
+    def __init__(self, ai_settings, screen, type):
         """ Initialize powerup at the alien position and set its starting position"""
         super(PowerUp,self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
 
         # Load the alien image and set its rect attributes
-
-        image_load = pygame.image.load('images/power_up.png')
+        self.pu_type=type
+        image_load = pygame.image.load(ai_settings.pu_img_list[self.pu_type])
         self.image=pygame.transform.scale(image_load,
                                           (ai_settings.pu_width,ai_settings.pu_height))
         self.rect = self.image.get_rect()
@@ -30,3 +30,4 @@ class PowerUp(Sprite):
     def update(self):
         """Move the powerup down the screen"""
         self.rect.y +=self.ai_settings.pu_speed_factor
+
