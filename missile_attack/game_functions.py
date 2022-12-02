@@ -28,9 +28,11 @@ def create_alien(ai_settings,screen, aliens, alien_number,row_number):
     alien.rect.x = alien.x
     alien.rect.y = alien.rect.height + 2* alien.rect.height * row_number
     aliens.add(alien)
-def create_pu(ai_settings, screen, aliens, pus):
-    type = randint(0, 1)
-    pu=PowerUp(ai_settings,screen, type)
+def create_pu(ai_settings, screen, aliens, pus, pu_prob_roll):
+    pu_type=0
+    if pu_prob_roll<ai_settings.pu_life_probability:
+        pu_type=1
+    pu=PowerUp(ai_settings,screen, pu_type)
     pu.x=aliens[0].rect.x
     pu.y=aliens[0].rect.y
     pu.rect.x=pu.x
@@ -138,7 +140,7 @@ def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets, pus):
     for bullet in bullets.copy():
         if bullet.rect.bottom <=0:
             bullets.remove(bullet)
-    print("Bullets: " + str(len(bullets)))
+    #print("Bullets: " + str(len(bullets)))
     #check for any bullets that have hit aliens.
     #If so, get rid of the bullet and the alien.
     check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets, pus)
@@ -177,9 +179,10 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
             stats.score+= ai_settings.alien_points * len(aliens)
             sb.prep_score()
             pu_prob_roll = randint(1, 100)
-            if pu_prob_roll <= ai_settings.pu_probability:
+            print(pu_prob_roll)
+            if pu_prob_roll <= ai_settings.pu_ammo_probability:
 
-                create_pu(ai_settings, screen, aliens,pus)
+                create_pu(ai_settings, screen, aliens,pus, pu_prob_roll)
         check_high_score(stats, sb)
 
     if len(aliens)==0:

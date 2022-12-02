@@ -40,7 +40,8 @@ class Settings():
         self.pu_width = 30
         self.pu_height = 50
         self.pu_speed_factor = 1
-        self.pu_probability = 15
+        self.pu_ammo_probability = 7
+        self.pu_life_probability = 1
 
         self.pu_b_offset = 20
         self.pu_ammo_i = 30
